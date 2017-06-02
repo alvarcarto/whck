@@ -14,8 +14,17 @@ if (_.isEmpty(process.env.API_HOST)) {
   throw new Error(message);
 }
 
-module.exports = {
+const config = {
   API_HOST: process.env.API_HOST,
-  API_HTTP_URL: `http://${process.env.API_HOST}`,
-  API_WS_URL: `ws://${process.env.API_HOST}`,
+  SECURE: process.env.SECURE === 'true',
 };
+
+if (config.SECURE) {
+  config.API_HTTP_URL = `https://${process.env.API_HOST}`;
+  config.API_WS_URL = `wss://${process.env.API_HOST}`;
+} else {
+  config.API_HTTP_URL = `http://${process.env.API_HOST}`;
+  config.API_WS_URL = `ws://${process.env.API_HOST}`;
+}
+
+module.exports = config;
