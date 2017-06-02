@@ -51,6 +51,7 @@ function main() {
 
   const inputEl = document.getElementById('file-input');
   function sendPic() {
+    document.getElementById('selected-file-text').innerHTML = '(1 image selected)'
     const data = new FormData();
     data.append('image', inputEl.files[0]);
 
