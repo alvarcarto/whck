@@ -66,7 +66,7 @@ function main() {
       });
   }
 
-  inputEl.addEventListener('blur', sendPic, false);
+  inputEl.addEventListener('change', sendPic, false);
 }
 
 window.onload = main;
