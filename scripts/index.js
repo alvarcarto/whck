@@ -51,20 +51,22 @@ function main() {
 
   const inputEl = document.getElementById('file-input');
   function sendPic() {
-    document.getElementById('selected-file-text').innerHTML = '(1 image selected)'
+    document.getElementById('selected-file-text').innerHTML = '(uploading ..)'
     const data = new FormData();
     data.append('image', inputEl.files[0]);
 
     axios.post(`${config.API_HTTP_URL}/api/uploads`, data)
       .then((res) => {
+        document.getElementById('selected-file-text').innerHTML = '(ready to whack)'
         state.lastUploadedFileUrl = res.data.url;
       })
       .catch((err) => {
         console.log(err);
+        document.getElementById('selected-file-text').innerHTML = '(upload failed: ' + err.message + ')'
       });
   }
 
-  inputEl.addEventListener('change', sendPic, false);
+  inputEl.addEventListener('blur', sendPic, false);
 }
 
 window.onload = main;
